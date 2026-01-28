@@ -10,7 +10,7 @@ from apps.amazon_ae.models import AmazonProduct, AmazonOrder, AmazonOrderItem, A
 from apps.noon_ae.models import NoonProduct, NoonOrder, NoonOrderItem, NoonInventory
 from datetime import datetime
 import os
-
+import random
 def safe_str(value, default=''):
     """Safely convert value to string, handling NaN and None"""
     if pd.isna(value) or value is None:
@@ -315,3 +315,80 @@ def upload_noon_inventory(df, user):
             updated += 1
     
     return {'created': created, 'updated': updated}
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def clear_database(request):
+    """Dangerous: Deletes all marketplace data"""
+    try:
+        with transaction.atomic():
+            AmazonOrder.objects.all().delete()
+            AmazonProduct.objects.all().delete() # Inventory & Items cascade
+            NoonOrder.objects.all().delete()
+            NoonProduct.objects.all().delete()
+        return Response({"message": "✅ Database Cleared Successfully"})
+    except Exception as e:
+        return Response({"error": str(e)}, status=500)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def fix_relationships(request):
+    """Links Order Items to Products via SKU matching"""
+    try:
+        with transaction.atomic():
+            # 1. Fix Amazon
+            products = list(AmazonProduct.objects.all())
+            if not products: return Response({"error": "No Amazon products found"})
+            
+            sku_to_product = {p.sku: p for p in products}
+            amz_count = 0
+            
+            for item in AmazonOrderItem.objects.all():
+                if item.sku in sku_to_product:
+                    p = sku_to_product[item.sku]
+                    item.asin, item.title, item.item_price_amount = p.asin, p.title, p.price
+                else:
+                    p = random.choice(products)
+                    item.asin, item.sku, item.title, item.item_price_amount = p.asin, p.sku, p.title, p.price
+                
+                if item.quantity_ordered == 0: item.quantity_ordered = 1
+                item.save()
+                amz_count += 1
+
+            # Recalculate Amazon Order Totals
+            for order in AmazonOrder.objects.all():
+                order.order_total_amount = sum(i.item_price_amount * i.quantity_ordered for i in order.items.all())
+                order.save()
+
+            # 2. Fix Noon
+            n_products = list(NoonProduct.objects.all())
+            if not n_products: return Response({"error": "No Noon products found"})
+            
+            n_sku_to_product = {p.partner_sku: p for p in n_products}
+            noon_count = 0
+            
+            for item in NoonOrderItem.objects.all():
+                if item.partner_sku in n_sku_to_product:
+                    p = n_sku_to_product[item.partner_sku]
+                    item.noon_sku, item.name, item.unit_price = p.noon_sku, p.title, p.price
+                else:
+                    p = random.choice(n_products)
+                    item.noon_sku, item.partner_sku, item.name, item.unit_price = p.noon_sku, p.partner_sku, p.title, p.price
+                
+                if item.quantity == 0: item.quantity = 1
+                item.total_price = item.unit_price * item.quantity
+                item.save()
+                noon_count += 1
+
+            # Recalculate Noon Order Totals
+            for order in NoonOrder.objects.all():
+                order.total_amount = sum(i.total_price for i in order.items.all())
+                order.save()
+
+        return Response({
+            "message": "✅ Relationships Fixed", 
+            "amazon_items_fixed": amz_count,
+            "noon_items_fixed": noon_count
+        })
+    except Exception as e:
+        return Response({"error": str(e)}, status=500)
