@@ -5,36 +5,38 @@ from django.utils import timezone
 
 class MarketplaceTokenAuthentication(authentication.BaseAuthentication):
     def authenticate(self, request):
-        # Try Bearer token authentication
+        # 1. Check for Bearer token in Authorization header
         auth_header = request.META.get('HTTP_AUTHORIZATION')
-        if auth_header and auth_header.startswith('Bearer '):
-            token = auth_header.split(' ')[1]
-            try:
-                credential = MarketplaceCredential.objects.get(
-                    access_token=token,
-                    is_active=True
-                )
-                if credential.token_expires_at and credential.token_expires_at < timezone.now():
-                    raise exceptions.AuthenticationFailed('Token expired')
-                return (credential.user, credential)
-            except MarketplaceCredential.DoesNotExist:
-                raise exceptions.AuthenticationFailed('Invalid token')
+        
+        if not auth_header:
+            return None  # Authentication failed (No header)
 
-        # Try client_id and client_secret from headers
-        client_id = request.META.get('HTTP_X_CLIENT_ID')
-        client_secret = request.META.get('HTTP_X_CLIENT_SECRET')
+        parts = auth_header.split()
 
-        if client_id and client_secret:
-            try:
-                credential = MarketplaceCredential.objects.get(
-                    client_id=client_id,
-                    is_active=True
-                )
-                if credential.verify_secret(client_secret):
-                    return (credential.user, credential)
-                else:
-                    raise exceptions.AuthenticationFailed('Invalid credentials')
-            except MarketplaceCredential.DoesNotExist:
-                raise exceptions.AuthenticationFailed('Invalid client_id')
+        if parts[0].lower() != 'bearer':
+            return None  # Authentication failed (Not a Bearer token)
 
-        return None
+        if len(parts) == 1:
+            raise exceptions.AuthenticationFailed('Invalid token header. No credentials provided.')
+        elif len(parts) > 2:
+            raise exceptions.AuthenticationFailed('Invalid token header. Token string should not contain spaces.')
+
+        token = parts[1]
+
+        try:
+            # 2. Validate the token against the database
+            credential = MarketplaceCredential.objects.get(
+                access_token=token,
+                is_active=True
+            )
+            
+            # 3. Check expiration
+            if credential.token_expires_at and credential.token_expires_at < timezone.now():
+                raise exceptions.AuthenticationFailed('Token expired')
+                
+            return (credential.user, credential)
+            
+        except MarketplaceCredential.DoesNotExist:
+            raise exceptions.AuthenticationFailed('Invalid token')
+
+        # We REMOVED the X-Client-ID / X-Client-Secret check here.
