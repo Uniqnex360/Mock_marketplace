@@ -1,0 +1,21 @@
+name: Keep Render Awake
+
+on:
+  schedule:
+    # Runs every 10 minutes
+    - cron: '*/10 * * * *'
+  workflow_dispatch: # Allows manual trigger
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Render App
+        run: |
+          curl -s https://mock-marketplace.onrender.com/health/
+          
+      - name: Ensure DB Setup
+        run: |
+          # We also hit the setup URL to ensure that if the server 
+          # DID restart/wipe, the tables and users are recreated immediately.
+          curl -s https://mock-marketplace.onrender.com/api/auth/setup/
