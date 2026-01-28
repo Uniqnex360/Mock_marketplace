@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 import secrets
+from django.utils import timezone
 from datetime import datetime, timedelta
 
 class MarketplaceCredential(models.Model):
@@ -30,7 +31,7 @@ class MarketplaceCredential(models.Model):
 
     def generate_access_token(self):
         self.access_token = secrets.token_urlsafe(64)
-        self.token_expires_at = datetime.now() + timedelta(hours=24)
+        self.token_expires_at = timezone.now() + timedelta(hours=24)
         self.save()
         return self.access_token
 
