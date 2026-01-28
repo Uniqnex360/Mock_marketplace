@@ -19,4 +19,4 @@ RUN python manage.py collectstatic --noinput
 
 EXPOSE 8000
 
-CMD ["./start.sh"]
+CMD ["sh", "-c", "python manage.py restore_sandbox && gunicorn marketplace_mock.wsgi:application --bind 0.0.0.0:8000"]
