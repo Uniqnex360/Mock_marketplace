@@ -11,22 +11,41 @@ from apps.noon_ae.models import NoonProduct, NoonOrder, NoonOrderItem, NoonInven
 from datetime import datetime
 import os
 
+def safe_str(value, default=''):
+    """Safely convert value to string, handling NaN and None"""
+    if pd.isna(value) or value is None:
+        return default
+    return str(value).strip()
+
+def safe_num(value, default=0):
+    """Safely convert value to number"""
+    if pd.isna(value) or value is None:
+        return default
+    try:
+        return float(value)
+    except:
+        return default
+
+def safe_int(value, default=0):
+    """Safely convert value to integer"""
+    return int(safe_num(value, default))
+
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def upload_amazon_data(request):
     if 'file' not in request.FILES:
         return Response({'error': 'No file provided'}, status=status.HTTP_400_BAD_REQUEST)
-
+    
     file = request.FILES['file']
     data_type = request.data.get('data_type')
-
+    
     if data_type not in ['products', 'orders', 'inventory']:
         return Response({'error': 'Invalid data type'}, status=status.HTTP_400_BAD_REQUEST)
-
+    
     try:
         df = pd.read_excel(file)
         df = df.where(pd.notnull(df), None)
-
+        
         with transaction.atomic():
             if data_type == 'products':
                 result = upload_amazon_products(df, request.user)
@@ -34,7 +53,7 @@ def upload_amazon_data(request):
                 result = upload_amazon_orders(df, request.user)
             elif data_type == 'inventory':
                 result = upload_amazon_inventory(df, request.user)
-
+        
         return Response({
             'message': f'Successfully uploaded {data_type}',
             'details': result
@@ -45,84 +64,108 @@ def upload_amazon_data(request):
 def upload_amazon_products(df, user):
     created = 0
     updated = 0
+    
     for _, row in df.iterrows():
+        asin = safe_str(row.get('asin'))
+        if not asin:
+            continue
+        
         obj, is_created = AmazonProduct.objects.update_or_create(
-            asin=row.get('asin'),
+            asin=asin,
             defaults={
                 'user': user,
-                'sku': row.get('sku', ''),
-                'title': row.get('title', ''),
-                'description': row.get('description', ''),
-                'brand': row.get('brand', ''),
-                'category': row.get('category', ''),
-                'price': row.get('price', 0),
-                'quantity': row.get('quantity', 0),
-                'image_url': row.get('image_url', ''),
-                'status': row.get('status', 'ACTIVE'),
+                'sku': safe_str(row.get('sku'), 'UNKNOWN'),
+                'title': safe_str(row.get('title'), 'Untitled'),
+                'description': safe_str(row.get('description'), ''),
+                'brand': safe_str(row.get('brand'), ''),
+                'category': safe_str(row.get('category'), 'General'),
+                'price': safe_num(row.get('price'), 0),
+                'quantity': safe_int(row.get('quantity'), 0),
+                'image_url': safe_str(row.get('image_url'), ''),
+                'status': safe_str(row.get('status'), 'ACTIVE'),
             }
         )
         if is_created:
             created += 1
         else:
             updated += 1
+    
     return {'created': created, 'updated': updated}
 
 def upload_amazon_orders(df, user):
     orders = 0
     items = 0
+    
     for _, row in df.iterrows():
         order_date = row.get('purchase_date')
         if isinstance(order_date, str):
-            order_date = datetime.strptime(order_date, '%Y-%m-%d %H:%M:%S')
-
+            try:
+                order_date = datetime.strptime(order_date, '%Y-%m-%d %H:%M:%S')
+            except:
+                order_date = datetime.now()
+        elif order_date is None or pd.isna(order_date):
+            order_date = datetime.now()
+        
+        amazon_order_id = safe_str(row.get('amazon_order_id'))
+        if not amazon_order_id:
+            continue
+        
         order, _ = AmazonOrder.objects.update_or_create(
-            amazon_order_id=row.get('amazon_order_id'),
+            amazon_order_id=amazon_order_id,
             defaults={
                 'user': user,
                 'purchase_date': order_date,
-                'order_status': row.get('order_status', 'Pending'),
-                'order_total_amount': row.get('order_total_amount', 0),
-                'buyer_email': row.get('buyer_email', ''),
-                'buyer_name': row.get('buyer_name', ''),
+                'order_status': safe_str(row.get('order_status'), 'Pending'),
+                'order_total_amount': safe_num(row.get('order_total_amount'), 0),
+                'buyer_email': safe_str(row.get('buyer_email'), ''),
+                'buyer_name': safe_str(row.get('buyer_name'), ''),
             }
         )
         orders += 1
-
-        if row.get('order_item_id'):
+        
+        order_item_id = safe_str(row.get('order_item_id'))
+        if order_item_id:
             AmazonOrderItem.objects.update_or_create(
-                order_item_id=row.get('order_item_id'),
+                order_item_id=order_item_id,
                 defaults={
                     'order': order,
-                    'asin': row.get('item_asin', ''),
-                    'sku': row.get('item_sku', ''),
-                    'title': row.get('item_title', ''),
-                    'quantity_ordered': row.get('quantity_ordered', 1),
-                    'item_price_amount': row.get('item_price', 0),
+                    'asin': safe_str(row.get('item_asin'), ''),
+                    'sku': safe_str(row.get('item_sku'), ''),
+                    'title': safe_str(row.get('item_title'), 'Product'),
+                    'quantity_ordered': safe_int(row.get('quantity_ordered'), 1),
+                    'item_price_amount': safe_num(row.get('item_price'), 0),
                 }
             )
             items += 1
+    
     return {'orders': orders, 'items': items}
 
 def upload_amazon_inventory(df, user):
     created = 0
     updated = 0
+    
     for _, row in df.iterrows():
+        sku = safe_str(row.get('sku'))
+        if not sku:
+            continue
+        
         obj, is_created = AmazonInventory.objects.update_or_create(
             user=user,
-            sku=row.get('sku'),
+            sku=sku,
             defaults={
-                'asin': row.get('asin', ''),
-                'product_name': row.get('product_name', ''),
-                'available_quantity': row.get('available_quantity', 0),
-                'pending_quantity': row.get('pending_quantity', 0),
-                'reserved_quantity': row.get('reserved_quantity', 0),
-                'total_quantity': row.get('total_quantity', 0),
+                'asin': safe_str(row.get('asin'), ''),
+                'product_name': safe_str(row.get('product_name'), ''),
+                'available_quantity': safe_int(row.get('available_quantity'), 0),
+                'pending_quantity': safe_int(row.get('pending_quantity'), 0),
+                'reserved_quantity': safe_int(row.get('reserved_quantity'), 0),
+                'total_quantity': safe_int(row.get('total_quantity'), 0),
             }
         )
         if is_created:
             created += 1
         else:
             updated += 1
+    
     return {'created': created, 'updated': updated}
 
 @api_view(['POST'])
@@ -130,17 +173,17 @@ def upload_amazon_inventory(df, user):
 def upload_noon_data(request):
     if 'file' not in request.FILES:
         return Response({'error': 'No file provided'}, status=status.HTTP_400_BAD_REQUEST)
-
+    
     file = request.FILES['file']
     data_type = request.data.get('data_type')
-
+    
     if data_type not in ['products', 'orders', 'inventory']:
         return Response({'error': 'Invalid data type'}, status=status.HTTP_400_BAD_REQUEST)
-
+    
     try:
         df = pd.read_excel(file)
         df = df.where(pd.notnull(df), None)
-
+        
         with transaction.atomic():
             if data_type == 'products':
                 result = upload_noon_products(df, request.user)
@@ -148,7 +191,7 @@ def upload_noon_data(request):
                 result = upload_noon_orders(df, request.user)
             elif data_type == 'inventory':
                 result = upload_noon_inventory(df, request.user)
-
+        
         return Response({
             'message': f'Successfully uploaded {data_type}',
             'details': result
@@ -159,85 +202,116 @@ def upload_noon_data(request):
 def upload_noon_products(df, user):
     created = 0
     updated = 0
+    
     for _, row in df.iterrows():
+        noon_sku = safe_str(row.get('noon_sku'))
+        if not noon_sku:
+            continue
+        
+        sale_price = row.get('sale_price')
+        if pd.isna(sale_price) or sale_price is None:
+            sale_price = None
+        else:
+            sale_price = safe_num(sale_price)
+        
         obj, is_created = NoonProduct.objects.update_or_create(
-            noon_sku=row.get('noon_sku'),
+            noon_sku=noon_sku,
             defaults={
                 'user': user,
-                'partner_sku': row.get('partner_sku', ''),
-                'title': row.get('title', ''),
-                'title_ar': row.get('title_ar', ''),
-                'brand': row.get('brand', ''),
-                'category_code': row.get('category_code', ''),
-                'product_type': row.get('product_type', ''),
-                'price': row.get('price', 0),
-                'sale_price': row.get('sale_price') if pd.notna(row.get('sale_price')) else None,
-                'stock_quantity': row.get('stock_quantity', 0),
-                'status': row.get('status', 'active'),
+                'partner_sku': safe_str(row.get('partner_sku'), ''),
+                'title': safe_str(row.get('title'), ''),
+                'title_ar': safe_str(row.get('title_ar'), ''),
+                'brand': safe_str(row.get('brand'), ''),
+                'category_code': safe_str(row.get('category_code'), ''),
+                'product_type': safe_str(row.get('product_type'), ''),
+                'price': safe_num(row.get('price'), 0),
+                'sale_price': sale_price,
+                'stock_quantity': safe_int(row.get('stock_quantity'), 0),
+                'status': safe_str(row.get('status'), 'active'),
             }
         )
         if is_created:
             created += 1
         else:
             updated += 1
+    
     return {'created': created, 'updated': updated}
 
 def upload_noon_orders(df, user):
     orders = {}
+    
     for _, row in df.iterrows():
-        order_nr = row.get('order_nr')
+        order_nr = safe_str(row.get('order_nr'))
+        if not order_nr:
+            continue
+        
         order_date = row.get('order_date')
         if isinstance(order_date, str):
-            order_date = datetime.strptime(order_date, '%Y-%m-%d %H:%M:%S')
-
+            try:
+                order_date = datetime.strptime(order_date, '%Y-%m-%d %H:%M:%S')
+            except:
+                order_date = datetime.now()
+        elif order_date is None or pd.isna(order_date):
+            order_date = datetime.now()
+        
         if order_nr not in orders:
             order, _ = NoonOrder.objects.update_or_create(
                 order_nr=order_nr,
                 defaults={
                     'user': user,
                     'order_date': order_date,
-                    'status': row.get('status', 'placed'),
-                    'customer_first_name': row.get('customer_first_name', ''),
-                    'customer_last_name': row.get('customer_last_name', ''),
-                    'customer_email': row.get('customer_email', ''),
-                    'total_amount': row.get('total_amount', 0),
-                    'address_city': row.get('address_city', ''),
+                    'status': safe_str(row.get('status'), 'placed'),
+                    'customer_first_name': safe_str(row.get('customer_first_name'), ''),
+                    'customer_last_name': safe_str(row.get('customer_last_name'), ''),
+                    'customer_email': safe_str(row.get('customer_email'), ''),
+                    'total_amount': safe_num(row.get('total_amount'), 0),
+                    'address_city': safe_str(row.get('address_city'), ''),
+                    'payment_method': safe_str(row.get('payment_method'), 'COD'),
                 }
             )
             orders[order_nr] = order
-
-        if pd.notna(row.get('order_item_id')):
+        
+        order_item_id = safe_str(row.get('order_item_id'))
+        if order_item_id:
             NoonOrderItem.objects.update_or_create(
-                order_item_id=row.get('order_item_id'),
+                order_item_id=order_item_id,
                 defaults={
                     'order': orders[order_nr],
-                    'noon_sku': row.get('item_noon_sku', ''),
-                    'partner_sku': row.get('item_partner_sku', ''),
-                    'name': row.get('item_name', ''),
-                    'quantity': row.get('quantity', 1),
-                    'unit_price': row.get('unit_price', 0),
-                    'total_price': row.get('total_price', 0),
+                    'noon_sku': safe_str(row.get('item_noon_sku'), ''),
+                    'partner_sku': safe_str(row.get('item_partner_sku'), ''),
+                    'name': safe_str(row.get('item_name'), ''),
+                    'quantity': safe_int(row.get('quantity'), 1),
+                    'unit_price': safe_num(row.get('unit_price'), 0),
+                    'total_price': safe_num(row.get('total_price'), 0),
+                    'status': safe_str(row.get('item_status'), 'confirmed'),
                 }
             )
+    
     return {'orders': len(orders), 'rows_processed': len(df)}
 
 def upload_noon_inventory(df, user):
     created = 0
     updated = 0
+    
     for _, row in df.iterrows():
+        partner_sku = safe_str(row.get('partner_sku'))
+        if not partner_sku:
+            continue
+        
         obj, is_created = NoonInventory.objects.update_or_create(
             user=user,
-            partner_sku=row.get('partner_sku'),
+            partner_sku=partner_sku,
             defaults={
-                'noon_sku': row.get('noon_sku', ''),
-                'barcode': row.get('barcode', ''),
-                'quantity': row.get('quantity', 0),
-                'reserved_quantity': row.get('reserved_quantity', 0),
-                'warehouse_code': row.get('warehouse_code', ''),
+                'noon_sku': safe_str(row.get('noon_sku'), ''),
+                'barcode': safe_str(row.get('barcode'), ''),
+                'quantity': safe_int(row.get('quantity'), 0),
+                'reserved_quantity': safe_int(row.get('reserved_quantity'), 0),
+                'warehouse_code': safe_str(row.get('warehouse_code'), ''),
             }
         )
         if is_created:
             created += 1
         else:
             updated += 1
+    
     return {'created': created, 'updated': updated}
