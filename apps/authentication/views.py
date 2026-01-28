@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from .models import MarketplaceCredential
+from django.core.management import call_command
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -75,3 +76,35 @@ def register_credentials(request):
         'client_secret': credential.client_secret,
         'marketplace': credential.marketplace
     })
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def emergency_setup(request):
+    try:
+        # 1. Run Migrations
+        call_command('migrate', interactive=False)
+        
+        # 2. Create Test User
+        user, _ = User.objects.get_or_create(username='testuser')
+        user.set_password('testpass123')
+        user.save()
+        
+        # 3. Create Amazon Credentials (Matching your docs)
+        amz, _ = MarketplaceCredential.objects.get_or_create(user=user, marketplace='AMAZON_AE')
+        amz.client_id = "amazon_ae_yVkOidNBLFFQ0Lum0RhYSg"
+        amz.client_secret = "ITjP9X44IVgM-hJV9_Y62rwawmoMy4HkgF_eyhfacnA"
+        amz.save()
+        
+        # 4. Create Noon Credentials (Matching your docs)
+        noon, _ = MarketplaceCredential.objects.get_or_create(user=user, marketplace='NOON_AE')
+        noon.client_id = "noon_ae_Yr7BIPz3d0ZoRzvMGYeEUw"
+        noon_secret = "Q8RwmadK7YbwQ3iYLHP_sdGAWaVNw4Jc6CTv4dntgfU"
+        noon.client_secret = noon_secret
+        noon.save()
+
+        return Response({
+            "status": "success",
+            "message": "Database migrated and credentials created!",
+            "credentials": "Use the ones from your documentation."
+        })
+    except Exception as e:
+        return Response({"status": "error", "message": str(e)}, status=500)
