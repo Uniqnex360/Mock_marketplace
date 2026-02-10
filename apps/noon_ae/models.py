@@ -23,6 +23,7 @@ class NoonProduct(models.Model):
     image_url = models.URLField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    raw_data = models.JSONField(default=dict)
 
     def __str__(self):
         return f"{self.noon_sku} - {self.title}"
@@ -58,6 +59,7 @@ class NoonOrder(models.Model):
     is_marketplace = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    raw_data = models.JSONField(default=dict)
 
     def __str__(self):
         return self.order_nr
@@ -67,6 +69,7 @@ class NoonOrderItem(models.Model):
     order_item_id = models.CharField(max_length=50, unique=True)
     noon_sku = models.CharField(max_length=100)
     partner_sku = models.CharField(max_length=100)
+    raw_data = models.JSONField(default=dict)
     name = models.CharField(max_length=500)
     quantity = models.IntegerField()
     unit_price = models.DecimalField(max_digits=10, decimal_places=2)

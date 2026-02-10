@@ -12,10 +12,8 @@ from apps.amazon_ae.models import AmazonProduct, AmazonOrder, AmazonOrderItem, A
 from apps.noon_ae.models import NoonProduct, NoonOrder, NoonOrderItem, NoonInventory
 from django.contrib.auth.models import User
 
-# MongoDB connection
 MONGODB_URI = 'mongodb+srv://techteam:WcblsEme1Q1Vv7Rt@cluster0.5hrxigl.mongodb.net/ecommerce_db?retryWrites=true&w=majority&appName=Cluster0'
 
-# Default user for products
 DEFAULT_USER = None
 
 def get_default_user():

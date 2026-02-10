@@ -4,21 +4,21 @@ from .models import AmazonProduct, AmazonOrder, AmazonOrderItem, AmazonInventory
 class AmazonProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = AmazonProduct
-        exclude = ['user', 'created_at', 'updated_at']
+        fields = '__all__'
 
 class AmazonOrderItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = AmazonOrderItem
-        exclude = ['order']
+        fields = '__all__'
 
 class AmazonOrderSerializer(serializers.ModelSerializer):
     items = AmazonOrderItemSerializer(many=True, read_only=True)
 
     class Meta:
         model = AmazonOrder
-        exclude = ['user', 'created_at', 'updated_at']
+        fields = '__all__'
 
 class AmazonInventorySerializer(serializers.ModelSerializer):
     class Meta:
         model = AmazonInventory
-        exclude = ['user']
+        fields = '__all__'

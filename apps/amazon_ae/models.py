@@ -14,6 +14,7 @@ class AmazonProduct(models.Model):
     quantity = models.IntegerField(default=0)
     image_url = models.URLField(blank=True, default='')
     status = models.CharField(max_length=50, default='ACTIVE')
+    raw_data = models.JSONField(default=dict) 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -48,6 +49,7 @@ class AmazonOrder(models.Model):
     earliest_ship_date = models.DateTimeField(null=True, blank=True)
     latest_ship_date = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    raw_data = models.JSONField(default=dict)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
@@ -58,6 +60,7 @@ class AmazonOrderItem(models.Model):
     order_item_id = models.CharField(max_length=50, unique=True)
     asin = models.CharField(max_length=50)
     sku = models.CharField(max_length=100)
+    raw_data = models.JSONField(default=dict)
     title = models.CharField(max_length=500)
     quantity_ordered = models.IntegerField()
     quantity_shipped = models.IntegerField(default=0)
