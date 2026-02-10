@@ -1,0 +1,418 @@
+[
+  {
+    "_id": {
+      "$oid": "682b1221e2e9f103105981b8"
+    },
+    "name": "D-Con",
+    "marketplace_id": {
+      "$oid": "67ce8f51ab471ccbb9f5d9ff"
+    },
+    "marketplace_ids": [
+      {
+        "$oid": "67ce8f51ab471ccbb9f5d9ff"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "682b12d9be7d1cf3c1c3949e"
+    },
+    "name": "Finish",
+    "marketplace_id": {
+      "$oid": "67ce8f51ab471ccbb9f5d9ff"
+    },
+    "marketplace_ids": [
+      {
+        "$oid": "67ce8f51ab471ccbb9f5d9ff"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "682b12d9be7d1cf3c1c394b3"
+    },
+    "name": "Air Wick",
+    "marketplace_id": {
+      "$oid": "67ce8f51ab471ccbb9f5d9ff"
+    },
+    "marketplace_ids": [
+      {
+        "$oid": "67ce8f51ab471ccbb9f5d9ff"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "682b12d9be7d1cf3c1c394df"
+    },
+    "name": "Woolite",
+    "marketplace_id": {
+      "$oid": "67ce8f51ab471ccbb9f5d9ff"
+    },
+    "marketplace_ids": [
+      {
+        "$oid": "67ce8f51ab471ccbb9f5d9ff"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "682b12d9be7d1cf3c1c394e4"
+    },
+    "name": "Resolve",
+    "marketplace_id": {
+      "$oid": "67ce8f51ab471ccbb9f5d9ff"
+    },
+    "marketplace_ids": [
+      {
+        "$oid": "67ce8f51ab471ccbb9f5d9ff"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "682b12d9be7d1cf3c1c394ef"
+    },
+    "name": "Lysol",
+    "marketplace_id": {
+      "$oid": "67ce8f51ab471ccbb9f5d9ff"
+    },
+    "marketplace_ids": [
+      {
+        "$oid": "67ce8f51ab471ccbb9f5d9ff"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "682b12dabe7d1cf3c1c39575"
+    },
+    "name": "Glass Plus",
+    "marketplace_id": {
+      "$oid": "67ce8f51ab471ccbb9f5d9ff"
+    },
+    "marketplace_ids": [
+      {
+        "$oid": "67ce8f51ab471ccbb9f5d9ff"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "682b12dabe7d1cf3c1c39581"
+    },
+    "name": "Lime Away",
+    "marketplace_id": {
+      "$oid": "67ce8f51ab471ccbb9f5d9ff"
+    },
+    "marketplace_ids": [
+      {
+        "$oid": "67ce8f51ab471ccbb9f5d9ff"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "682b12dabe7d1cf3c1c39584"
+    },
+    "name": "Old English",
+    "marketplace_id": {
+      "$oid": "67ce8f51ab471ccbb9f5d9ff"
+    },
+    "marketplace_ids": [
+      {
+        "$oid": "67ce8f51ab471ccbb9f5d9ff"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "682b12dabe7d1cf3c1c3958b"
+    },
+    "name": "Rid-X",
+    "marketplace_id": {
+      "$oid": "67ce8f51ab471ccbb9f5d9ff"
+    },
+    "marketplace_ids": [
+      {
+        "$oid": "67ce8f51ab471ccbb9f5d9ff"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "682b12dabe7d1cf3c1c39593"
+    },
+    "name": "Spray 'n Wash",
+    "marketplace_id": {
+      "$oid": "67ce8f51ab471ccbb9f5d9ff"
+    },
+    "marketplace_ids": [
+      {
+        "$oid": "67ce8f51ab471ccbb9f5d9ff"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "682b12dabe7d1cf3c1c39598"
+    },
+    "name": "Megared",
+    "marketplace_id": {
+      "$oid": "67ce8f51ab471ccbb9f5d9ff"
+    },
+    "marketplace_ids": [
+      {
+        "$oid": "67ce8f51ab471ccbb9f5d9ff"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "682b12dabe7d1cf3c1c395a0"
+    },
+    "name": "Neuriva",
+    "marketplace_id": {
+      "$oid": "67ce8f51ab471ccbb9f5d9ff"
+    },
+    "marketplace_ids": [
+      {
+        "$oid": "67ce8f51ab471ccbb9f5d9ff"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "682b12dabe7d1cf3c1c395ad"
+    },
+    "name": "Schiff",
+    "marketplace_id": {
+      "$oid": "67ce8f51ab471ccbb9f5d9ff"
+    },
+    "marketplace_ids": [
+      {
+        "$oid": "67ce8f51ab471ccbb9f5d9ff"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "682b12dabe7d1cf3c1c395d5"
+    },
+    "name": "Move Free",
+    "marketplace_id": {
+      "$oid": "67ce8f51ab471ccbb9f5d9ff"
+    },
+    "marketplace_ids": [
+      {
+        "$oid": "67ce8f51ab471ccbb9f5d9ff"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "682b12dabe7d1cf3c1c395db"
+    },
+    "name": "Airborne",
+    "marketplace_id": {
+      "$oid": "67ce8f51ab471ccbb9f5d9ff"
+    },
+    "marketplace_ids": [
+      {
+        "$oid": "67ce8f51ab471ccbb9f5d9ff"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "682b12dabe7d1cf3c1c39604"
+    },
+    "name": "Digestive Advantage",
+    "marketplace_id": {
+      "$oid": "67ce8f51ab471ccbb9f5d9ff"
+    },
+    "marketplace_ids": [
+      {
+        "$oid": "67ce8f51ab471ccbb9f5d9ff"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "682b12dbbe7d1cf3c1c3971e"
+    },
+    "name": "Therapearl",
+    "marketplace_id": {
+      "$oid": "67ce8f51ab471ccbb9f5d9ff"
+    },
+    "marketplace_ids": [
+      {
+        "$oid": "67ce8f51ab471ccbb9f5d9ff"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "682b12dbbe7d1cf3c1c39722"
+    },
+    "name": "BioFreeze",
+    "marketplace_id": {
+      "$oid": "67ce8f51ab471ccbb9f5d9ff"
+    },
+    "marketplace_ids": [
+      {
+        "$oid": "67ce8f51ab471ccbb9f5d9ff"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "682b12dbbe7d1cf3c1c39753"
+    },
+    "name": "Mucinex",
+    "marketplace_id": {
+      "$oid": "67ce8f51ab471ccbb9f5d9ff"
+    },
+    "marketplace_ids": [
+      {
+        "$oid": "67ce8f51ab471ccbb9f5d9ff"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "682b12dbbe7d1cf3c1c3975b"
+    },
+    "name": "Delsym",
+    "marketplace_id": {
+      "$oid": "67ce8f51ab471ccbb9f5d9ff"
+    },
+    "marketplace_ids": [
+      {
+        "$oid": "67ce8f51ab471ccbb9f5d9ff"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "682b12dcbe7d1cf3c1c3977d"
+    },
+    "name": "Cepacol",
+    "marketplace_id": {
+      "$oid": "67ce8f51ab471ccbb9f5d9ff"
+    },
+    "marketplace_ids": [
+      {
+        "$oid": "67ce8f51ab471ccbb9f5d9ff"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "682b12dcbe7d1cf3c1c397e0"
+    },
+    "name": "Clearasil",
+    "marketplace_id": {
+      "$oid": "67ce8f51ab471ccbb9f5d9ff"
+    },
+    "marketplace_ids": [
+      {
+        "$oid": "67ce8f51ab471ccbb9f5d9ff"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "682b12dcbe7d1cf3c1c39834"
+    },
+    "name": "Veet",
+    "marketplace_id": {
+      "$oid": "67ce8f51ab471ccbb9f5d9ff"
+    },
+    "marketplace_ids": [
+      {
+        "$oid": "67ce8f51ab471ccbb9f5d9ff"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "682b12ddbe7d1cf3c1c3986d"
+    },
+    "name": "Scalpicin",
+    "marketplace_id": {
+      "$oid": "67ce8f51ab471ccbb9f5d9ff"
+    },
+    "marketplace_ids": [
+      {
+        "$oid": "67ce8f51ab471ccbb9f5d9ff"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "682b12ddbe7d1cf3c1c398b9"
+    },
+    "name": "K-Y",
+    "marketplace_id": {
+      "$oid": "67ce8f51ab471ccbb9f5d9ff"
+    },
+    "marketplace_ids": [
+      {
+        "$oid": "67ce8f51ab471ccbb9f5d9ff"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "682b12ddbe7d1cf3c1c398cf"
+    },
+    "name": "Durex",
+    "marketplace_id": {
+      "$oid": "67ce8f51ab471ccbb9f5d9ff"
+    },
+    "marketplace_ids": [
+      {
+        "$oid": "67ce8f51ab471ccbb9f5d9ff"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "682b12debe7d1cf3c1c39a05"
+    },
+    "name": "Brasso",
+    "marketplace_id": {
+      "$oid": "67ce8f51ab471ccbb9f5d9ff"
+    },
+    "marketplace_ids": [
+      {
+        "$oid": "67ce8f51ab471ccbb9f5d9ff"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "682b21522531178dd4baa8b2"
+    },
+    "name": "",
+    "marketplace_id": {
+      "$oid": "67c9460fa5194f500892c0d2"
+    },
+    "marketplace_ids": [
+      {
+        "$oid": "67c9460fa5194f500892c0d2"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "68adfca2df370540d931ae0a"
+    },
+    "name": "Earth Bound",
+    "description": "",
+    "website": "",
+    "marketplace_id": null,
+    "marketplace_ids": []
+  }
+]

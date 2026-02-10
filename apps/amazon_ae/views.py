@@ -3,6 +3,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import PermissionDenied # Required for security check
+from rest_framework.filters import SearchFilter
 from django.db.models import Q
 from .models import AmazonProduct, AmazonOrder, AmazonOrderItem, AmazonInventory
 from .serializers import (
@@ -15,6 +16,8 @@ import base64
 class AmazonProductViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = AmazonProductSerializer
     permission_classes = [IsAuthenticated]
+    filter_backends = [SearchFilter]
+    search_fields = ['sku', 'asin', 'title']
     
     def get_queryset(self):
         # SECURITY CHECK: Token must be for Amazon
@@ -22,9 +25,20 @@ class AmazonProductViewSet(viewsets.ReadOnlyModelViewSet):
             raise PermissionDenied("This token is restricted to Amazon AE endpoints.")
             
         queryset = AmazonProduct.objects.filter(user=self.request.user)
+        
+        # Support specific SKU/ASIN search parameters
+        sku = self.request.query_params.get('sku')
+        if sku:
+            queryset = queryset.filter(sku__icontains=sku)
+        
+        asin = self.request.query_params.get('asin')
+        if asin:
+            queryset = queryset.filter(asin__icontains=asin)
+        
         identifiers = self.request.query_params.get('identifiers')
         if identifiers:
             queryset = queryset.filter(asin__in=identifiers.split(','))
+        
         return queryset
     
     def list(self, request, *args, **kwargs):

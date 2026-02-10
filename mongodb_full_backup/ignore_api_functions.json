@@ -1,0 +1,206 @@
+[
+  {
+    "_id": {
+      "$oid": "67c7ee3ea5194f500892c0c3"
+    },
+    "name": "forgotPassword"
+  },
+  {
+    "_id": {
+      "$oid": "67c7ee61a5194f500892c0c4"
+    },
+    "name": "changePassword"
+  },
+  {
+    "_id": {
+      "$oid": "67e3d7458c6faaaf4b7b068e"
+    },
+    "name": "loginUser"
+  },
+  {
+    "_id": {
+      "$oid": "6802332fd58d71d1bea1c9a7"
+    },
+    "name": "getPeriodWiseDataCustom"
+  },
+  {
+    "_id": {
+      "$oid": "6802333ed58d71d1bea1c9a8"
+    },
+    "name": "getPeriodWiseData"
+  },
+  {
+    "_id": {
+      "$oid": "68023df3d58d71d1bea1c9b0"
+    },
+    "name": "revenue_widget"
+  },
+  {
+    "_id": {
+      "$oid": "6804b8a39e45584052172f72"
+    },
+    "name": "revenue_widget_api"
+  },
+  {
+    "_id": {
+      "$oid": "6808cf87d6644f315ec552a1"
+    },
+    "name": "exportPeriodWiseCSV"
+  },
+  {
+    "_id": {
+      "$oid": "6808cf91d6644f315ec552a2"
+    },
+    "name": "getPeriodWiseDataXl"
+  },
+  {
+    "_id": {
+      "$oid": "680b7cab006c0082041f2d47"
+    },
+    "name": "getProductPerformanceSummary"
+  },
+  {
+    "_id": {
+      "$oid": "680f1d1d62c9ddd7870665bd"
+    },
+    "name": "getProfitAndLossDetails"
+  },
+  {
+    "_id": {
+      "$oid": "680f1d2d62c9ddd7870665be"
+    },
+    "name": "profit_loss_chart"
+  },
+  {
+    "_id": {
+      "$oid": "680f1d3862c9ddd7870665bf"
+    },
+    "name": "profitLossExportXl"
+  },
+  {
+    "_id": {
+      "$oid": "680f1d4262c9ddd7870665c0"
+    },
+    "name": "profitLossChartCsv"
+  },
+  {
+    "_id": {
+      "$oid": "680f2f9162c9ddd7870665c2"
+    },
+    "name": "allMarketplaceData"
+  },
+  {
+    "_id": {
+      "$oid": "680f3bc062c9ddd7870665d1"
+    },
+    "name": "downloadMarketplaceDataCSV"
+  },
+  {
+    "_id": {
+      "$oid": "680f3bd062c9ddd7870665d2"
+    },
+    "name": "allMarketplaceDataxl"
+  },
+  {
+    "_id": {
+      "$oid": "680f3c1762c9ddd7870665d3"
+    },
+    "name": "getProductPerformanceSummary"
+  },
+  {
+    "_id": {
+      "$oid": "680f499262c9ddd7870665dc"
+    },
+    "name": "downloadProductPerformanceSummary"
+  },
+  {
+    "_id": {
+      "$oid": "680f499d62c9ddd7870665dd"
+    },
+    "name": "downloadProductPerformanceCSV"
+  },
+  {
+    "_id": {
+      "$oid": "6818684638ca22eb92687b36"
+    },
+    "name": "ProductInsightsView"
+  },
+  {
+    "_id": {
+      "$oid": "681881bf38ca22eb92687b3d"
+    },
+    "name": "obtainChooseMatrix"
+  },
+  {
+    "_id": {
+      "$oid": "6818845338ca22eb92687b3e"
+    },
+    "name": "updateChooseMatrix"
+  },
+  {
+    "_id": {
+      "$oid": "681af2f47f187c2a7af006b9"
+    },
+    "name": "InsightsProductWise"
+  },
+  {
+    "_id": {
+      "$oid": "681c45d47f187c2a7af006cc"
+    },
+    "name": "getCitywiseSales"
+  },
+  {
+    "_id": {
+      "$oid": "681c4a757f187c2a7af006d9"
+    },
+    "name": "exportCitywiseSalesExcel"
+  },
+  {
+    "_id": {
+      "$oid": "681c4be07f187c2a7af006da"
+    },
+    "name": "downloadCitywiseSalesCSV"
+  },
+  {
+    "_id": {
+      "$oid": "681c4e027f187c2a7af006db"
+    },
+    "name": "downloadProductPerformanceCSV"
+  },
+  {
+    "_id": {
+      "$oid": "681c8c6f7f187c2a7af006de"
+    },
+    "name": "profitLossExportXl"
+  },
+  {
+    "_id": {
+      "$oid": "681c91217f187c2a7af006df"
+    },
+    "name": "allProductXl"
+  },
+  {
+    "_id": {
+      "$oid": "681ca3797f187c2a7af006e0"
+    },
+    "name": "obtainManufactureNames"
+  },
+  {
+    "_id": {
+      "$oid": "681d94b47f187c2a7af006e7"
+    },
+    "name": "api/shipstation/yesterday-orders"
+  },
+  {
+    "_id": {
+      "$oid": "681d94da7f187c2a7af006e8"
+    },
+    "name": "shipstation"
+  },
+  {
+    "_id": {
+      "$oid": "684ab608bdc0ac27667c6569"
+    },
+    "name": "get_products_with_pagination"
+  }
+]

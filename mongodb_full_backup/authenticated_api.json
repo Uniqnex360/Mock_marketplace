@@ -1,0 +1,910 @@
+[
+  {
+    "_id": {
+      "$oid": "67e2a5e80e440d52f2988b57"
+    },
+    "name": "fetchTopSellingCategories",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67e2a5e80e440d52f2988b58"
+    },
+    "name": "fetchSalesSummary",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67e2a5e80e440d52f2988b59"
+    },
+    "name": "getSalesTrendPercentage",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67e2a5e80e440d52f2988b5a"
+    },
+    "name": "mostSellingProducts",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67e2a5e80e440d52f2988b5b"
+    },
+    "name": "salesAnalytics",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67e2a5e80e440d52f2988b5c"
+    },
+    "name": "ordersCountForDashboard",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67e2a5e80e440d52f2988b5d"
+    },
+    "name": "fetchManualOrderDetails",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67e2a5e80e440d52f2988b5e"
+    },
+    "name": "updateManualOrder",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67e2a5e80e440d52f2988b5f"
+    },
+    "name": "createManualOrder",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67e2a5e80e440d52f2988b60"
+    },
+    "name": "getProductListForOrdercreation",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67e2a5e80e440d52f2988b61"
+    },
+    "name": "fetchOrderDetails",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67e2a5e80e440d52f2988b62"
+    },
+    "name": "fetchAllorders",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67e2a5e80e440d52f2988b63"
+    },
+    "name": "getOrdersBasedOnProduct",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67e2a5e80e440d52f2988b64"
+    },
+    "name": "fetchProductDetails",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67e2a5e80e440d52f2988b65"
+    },
+    "name": "getBrandList",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67e2a5e80e440d52f2988b66"
+    },
+    "name": "getProductCategoryList",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67e2a5e80e440d52f2988b67"
+    },
+    "name": "getProductList",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67e2a5e80e440d52f2988b68"
+    },
+    "name": "getMarketplaceList",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67ea42da6bfd296fb6926338"
+    },
+    "name": "createUser",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67ea42fa6bfd296fb6926339"
+    },
+    "name": "updateUser",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67ea430d6bfd296fb692633a"
+    },
+    "name": "listUsers",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67ea43196bfd296fb692633b"
+    },
+    "name": "fetchUserDetails",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67ea43236bfd296fb692633c"
+    },
+    "name": "fetchRoles",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67ea43e46bfd296fb692633d"
+    },
+    "name": "fetchInventryList",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67ea5e146bfd296fb6926341"
+    },
+    "name": "exportOrderReport",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67f7b80a0c15547c1f804adc"
+    },
+    "name": "get_sales_metrics",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67fe141b00d6e08fe451f6f1"
+    },
+    "name": "get_metrics_by_date_range",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67ff5dd8c6bf647bf8a2f66f"
+    },
+    "name": "LatestOrdersTodayAPIView",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "67ff9a02c6bf647bf8a2f67f"
+    },
+    "name": "RevenueWidgetAPIView",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6800cedf9934553f93fe99fb"
+    },
+    "name": "get_top_products",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "68020fddd58d71d1bea1c9a4"
+    },
+    "name": "getPeriodWiseData",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "68025c02d58d71d1bea1c9b3"
+    },
+    "name": "sample",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "681b044f43670627ec8f56b4"
+    },
+    "name": "getproductIdlist",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "681b045943670627ec8f56b5"
+    },
+    "name": "getSKUlist",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "681dd3b0a3c3641dce074276"
+    },
+    "name": "get_products_with_pagination",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "681de39da3c3641dce07427e"
+    },
+    "name": "getBrandListforfilter",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6821acb4e7577b06189b487b"
+    },
+    "name": "productsSalesOverview",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6821b1d0e7577b06189b487e"
+    },
+    "name": "productsListingQualityScore",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6822ef5a3d58aa7d6e2138bc"
+    },
+    "name": "productsDetailsPageSummary",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "682308ac3d58aa7d6e2138c4"
+    },
+    "name": "getBrandListforfilter",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "682472c3a7ae0af1880ac30b"
+    },
+    "name": "productsTrafficandConversions",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "682db3264d748f942ca58d00"
+    },
+    "name": "getProductVariant",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "683feb3aa9481bfb895f7d23"
+    },
+    "name": "getProfitAndLossDetailsForProduct",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "683ffa43a9481bfb895f7d2a"
+    },
+    "name": "profitlosschartForProduct",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "684006dba9481bfb895f7d2d"
+    },
+    "name": "getrevenuedetailsForProduct",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "68400c34a9481bfb895f7d38"
+    },
+    "name": "getInventryLogForProductdaywise",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "68412f02ee74899b4c7cdd7b"
+    },
+    "name": "getProductInformation",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6846902a8cf22e13cde49642"
+    },
+    "name": "updatedRevenueWidgetAPIView",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6847f9e8e09ef6e406f860ae"
+    },
+    "name": "updateProductDetails",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "68491518c85f5d7bf74b9c47"
+    },
+    "name": "productUnitProfitability",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "684a821fbdc0ac27667c654a"
+    },
+    "name": "productNetprofit",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "684be294bdc0ac27667c657c"
+    },
+    "name": "cogsGraph",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "684c5801fbb8854c3f56e822"
+    },
+    "name": "priceGraph",
+    "allowed_roles": [
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      },
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6887d15d04c1c285f54613cd"
+    },
+    "name": "downloadOrders",
+    "allowed_roles": [
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "68cd4ea474627f79b8f20fbf"
+    },
+    "name": "clearcache",
+    "allowed_roles": [
+      {
+        "$oid": "67c576c5d2e438faee901dd8"
+      },
+      {
+        "$oid": "676d3ce4743aba0b3084946b"
+      },
+      {
+        "$oid": "676d3d02743aba0b3084946c"
+      }
+    ]
+  }
+]

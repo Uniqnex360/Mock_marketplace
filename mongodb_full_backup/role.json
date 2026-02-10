@@ -1,0 +1,20 @@
+[
+  {
+    "_id": {
+      "$oid": "676d3ce4743aba0b3084946b"
+    },
+    "name": "Admin"
+  },
+  {
+    "_id": {
+      "$oid": "676d3d02743aba0b3084946c"
+    },
+    "name": "Manager"
+  },
+  {
+    "_id": {
+      "$oid": "67c576c5d2e438faee901dd8"
+    },
+    "name": "Viewer"
+  }
+]

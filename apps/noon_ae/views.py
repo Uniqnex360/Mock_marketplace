@@ -3,6 +3,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import PermissionDenied # Required for security check
+from rest_framework.filters import SearchFilter
 from .models import NoonProduct, NoonOrder, NoonOrderItem, NoonInventory
 from .serializers import (
     NoonProductSerializer, NoonOrderSerializer,
@@ -13,6 +14,8 @@ from datetime import datetime
 class NoonProductViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = NoonProductSerializer
     permission_classes = [IsAuthenticated]
+    filter_backends = [SearchFilter]
+    search_fields = ['partner_sku', 'noon_sku', 'title']
     
     def get_queryset(self):
         # SECURITY CHECK: Token must be for Noon
