@@ -1,68 +1,68 @@
-import os
-import django
-import json
+import os, django, json
 
-# --- DJANGO SETUP START ---
-# This tells Python where your Django settings are
+# --- DJANGO SETUP ---
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'marketplace_mock.settings')
 django.setup()
-# --- DJANGO SETUP END ---
 
-from django.contrib.auth.models import User
-from apps.amazon_ae.models import *
-from apps.noon_ae.models import *
+from apps.amazon_ae.models import AmazonOrder, AmazonOrderItem, AmazonProduct
+from apps.noon_ae.models import NoonOrder, NoonOrderItem, NoonProduct
 
-def enrich_data():
-    print("🏗️  Updating existing records with MongoDB JSON data...")
-    
-    # Path to your JSON folder
-    json_path = 'mongodb_full_backup'
+def clean_id(val):
+    """Removes our test prefixes and suffixes to find original MongoDB ID"""
+    if not val: return ""
+    return str(val).replace('999-', '').replace('Z-', '').replace('-X', '').strip()
 
-    def get_map(filename, key):
-        file = os.path.join(json_path, f"{filename}.json")
-        if not os.path.exists(file): 
-            print(f"⚠️ Warning: {file} not found")
-            return {}
-        with open(file, 'r') as f:
-            # We map by original ID for lookup
-            return {str(item.get(key)): item for item in json.load(f)}
+def get_mongo_product_map():
+    """Builds a map indexed by ASIN, SKU, and Product_ID for 100% match rate"""
+    path = 'mongodb_full_backup/product.json'
+    super_map = {}
+    if os.path.exists(path):
+        with open(path, 'r') as f:
+            data = json.load(f)
+            for p in data:
+                # Index this record by every possible identifier it has
+                identifiers = [p.get('asin'), p.get('product_id'), p.get('sku'), p.get('master_sku')]
+                for ident in identifiers:
+                    if ident:
+                        super_map[str(ident).strip()] = p
+    return super_map
 
-    # Load original data maps
-    prod_map = get_map('product', 'product_id')
-    prod_map.update(get_map('product', 'asin')) # Some use ASIN as key
-    
-    order_map = get_map('order', 'merchant_order_id')
-    order_map.update(get_map('order', 'customer_order_id'))
-
-    # 1. Update Amazon Products
+def enrich_amazon(prod_map):
+    print("🚀 Enriching Amazon columns using Super-Match...")
+    count = 0
     for p in AmazonProduct.objects.all():
-        orig_id = p.asin.replace('999-', '')
-        if orig_id in prod_map:
-            p.raw_data = prod_map[orig_id]
+        # Try to match current ASIN or current SKU (after cleaning)
+        match = prod_map.get(clean_id(p.asin)) or prod_map.get(clean_id(p.sku))
+        
+        if match:
+            p.product_title = match.get('product_title') or match.get('title')
+            p.brand_name = match.get('brand_name')
+            p.listing_quality_score = match.get('listing_quality_score', 0)
+            p.product_cost = match.get('product_cost', 0)
+            p.total_cogs = match.get('total_cogs', 0)
+            p.attributes = match.get('attributes', {})
             p.save()
+            count += 1
+    print(f"✅ {count} Amazon Products enriched.")
 
-    # 2. Update Amazon Orders
-    for o in AmazonOrder.objects.all():
-        orig_id = o.amazon_order_id.replace('999-', '')
-        if orig_id in order_map:
-            o.raw_data = order_map[orig_id]
-            o.save()
-
-    # 3. Update Noon Products
+def enrich_noon(prod_map):
+    print("🚀 Enriching Noon columns using Super-Match...")
+    count = 0
     for p in NoonProduct.objects.all():
-        orig_id = p.noon_sku.replace('Z-', '').replace('-X', '')
-        if orig_id in prod_map:
-            p.raw_data = prod_map[orig_id]
+        # Match by cleaned partner_sku or noon_sku
+        match = prod_map.get(clean_id(p.partner_sku)) or prod_map.get(clean_id(p.noon_sku))
+        
+        if match:
+            p.product_title = match.get('product_title') or match.get('title')
+            p.brand_name = match.get('brand_name')
+            p.listing_quality_score = match.get('listing_quality_score', 0)
+            p.attributes = match.get('attributes', {})
             p.save()
-
-    # 4. Update Noon Orders
-    for o in NoonOrder.objects.all():
-        orig_id = o.order_nr.replace('Z-', '')
-        if orig_id in order_map:
-            o.raw_data = order_map[orig_id]
-            o.save()
-
-    print("✅ Local database successfully enriched with all fields!")
+            count += 1
+    print(f"✅ {count} Noon Products enriched.")
 
 if __name__ == "__main__":
-    enrich_data()
+    m_map = get_mongo_product_map()
+    enrich_amazon(m_map)
+    enrich_noon(m_map)
+    print("\n🎉 SUPER-MATCH ENRICHMENT COMPLETE!")

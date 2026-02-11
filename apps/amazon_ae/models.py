@@ -12,11 +12,48 @@ class AmazonProduct(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     currency = models.CharField(max_length=3, default='AED')
     quantity = models.IntegerField(default=0)
+    product_title = models.CharField(max_length=500, null=True, blank=True)
+    listing_quality_score = models.FloatField(null=True, blank=True)
+    total_cogs = models.FloatField(null=True, blank=True)
+    product_cost = models.FloatField(null=True, blank=True)
+    referral_fee = models.FloatField(null=True, blank=True)
+    wpid = models.CharField(max_length=100, null=True, blank=True)
+    brand_name = models.CharField(max_length=200, null=True, blank=True)
+    attributes = models.JSONField(default=dict, blank=True) # For complex MongoDB objects
+    features = models.JSONField(default=list, blank=True)
+    image_urls = models.JSONField(default=list, blank=True)
     image_url = models.URLField(blank=True, default='')
     status = models.CharField(max_length=50, default='ACTIVE')
     raw_data = models.JSONField(default=dict) 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    cogs = models.FloatField(default=0.0, null=True, blank=True)
+    shipping_cost = models.FloatField(default=0.0, null=True, blank=True)
+    a_shipping_cost = models.FloatField(default=0.0, null=True, blank=True)
+    channel_fee = models.FloatField(default=0.0, null=True, blank=True)
+    fullfillment_by_channel_fee = models.FloatField(default=0.0, null=True, blank=True)
+    
+    # Metrics
+    page_views = models.IntegerField(default=0, null=True, blank=True)
+    sessions = models.IntegerField(default=0, null=True, blank=True)
+    refund = models.IntegerField(default=0, null=True, blank=True)
+    
+    # Descriptions & Meta
+    product_description = models.TextField(null=True, blank=True)
+    product_id = models.CharField(max_length=100, null=True, blank=True)
+    product_type = models.CharField(max_length=100, null=True, blank=True)
+    manufacturer_name = models.CharField(max_length=200, null=True, blank=True)
+    pack_size = models.IntegerField(default=1, null=True, blank=True)
+    
+    # Flags
+    fullfillment_by_channel = models.BooleanField(default=False)
+    will_ship_internationally = models.BooleanField(default=False)
+    new_product = models.BooleanField(default=False)
+    is_duplicate = models.BooleanField(default=False)
+    
+    # Complex Types
+    variant_group_info = models.JSONField(default=dict, blank=True)
+    marketplace_ids = models.JSONField(default=list, blank=True)
 
     def __str__(self):
         return f"{self.asin} - {self.title}"
@@ -33,6 +70,11 @@ class AmazonOrder(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='amazon_orders')
     amazon_order_id = models.CharField(max_length=50, unique=True)
+    order_total = models.JSONField(default=dict, blank=True)
+    shipping_information = models.JSONField(default=dict, blank=True)
+    is_prime = models.BooleanField(default=False)
+    geo = models.CharField(max_length=50, null=True, blank=True)
+    customer_order_id = models.CharField(max_length=100, null=True, blank=True)
     purchase_date = models.DateTimeField()
     order_status = models.CharField(max_length=20, choices=ORDER_STATUS_CHOICES)
     fulfillment_channel = models.CharField(max_length=10, default='MFN')
@@ -51,6 +93,12 @@ class AmazonOrder(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     raw_data = models.JSONField(default=dict)
     updated_at = models.DateTimeField(auto_now=True)
+    merchant_order_id = models.CharField(max_length=100, null=True, blank=True)
+    automated_shipping_settings = models.JSONField(default=dict, blank=True)
+    is_business_order = models.BooleanField(default=False)
+    is_prime = models.BooleanField(default=False)
+    
+    purchase_order_id = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
         return self.amazon_order_id
@@ -71,6 +119,15 @@ class AmazonOrderItem(models.Model):
     promotion_discount_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     condition_id = models.CharField(max_length=50, default='New')
     is_gift = models.BooleanField(default=False)
+    Pricing = models.JSONField(default=dict, blank=True)
+    TaxCollection = models.JSONField(default=dict, blank=True)
+    ProductDetails = models.JSONField(default=dict, blank=True)
+    PromotionDiscount = models.JSONField(default=dict, blank=True)
+    Fulfillment = models.JSONField(default=dict, blank=True)
+    
+    # Financials
+    net_profit = models.FloatField(null=True, blank=True)
+    Platform = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
         return f"{self.order_item_id} - {self.title}"
